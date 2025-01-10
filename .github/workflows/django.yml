@@ -48,3 +48,19 @@ jobs:
       with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: decide/coverage.xml 
+          
+  cobertura:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+    - name: Codacy Coverage Reporter
+      uses: codacy/codacy-coverage-reporter-action@v1
+      with:
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        coverage-reports: decide/coverage.xml
